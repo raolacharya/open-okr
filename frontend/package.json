@@ -22,7 +22,6 @@
   "devDependencies": {
     "@types/jest": "^23.1.4",
     "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-plugin-pwa": "^3.7.0",
     "@vue/cli-plugin-typescript": "^3.7.0",
@@ -50,5 +49,8 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "optionalDependencies": {
+    "@vue/cli-plugin-e2e-cypress": "^3.7.0"
   }
 }

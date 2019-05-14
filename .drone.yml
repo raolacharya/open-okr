@@ -9,7 +9,7 @@ steps:
       path: /root/.cache/Cypress
     commands:
       - cd frontend
-      - npm install
+      - npm install --no-optional
 
   - name: Lint
     image: node:8.16-stretch
@@ -23,7 +23,7 @@ steps:
       - cd frontend
       - npm run test:unit
 ---
-
+#     "@vue/cli-plugin-e2e-cypress": "^3.7.0",
 kind: pipeline
 name: frontend-e2e
 steps:
@@ -39,24 +39,11 @@ kind: pipeline
 name: backend
 
 steps:
-  - name: Build
+  - name: Lint
     image: python:3.7-stretch
     commands:
       - cd backend
       - pip install --upgrade pip
       - pip install pipenv
       - pipenv install --dev --system --deploy
-
-  - name: Lint
-    image: python:3.7-stretch
-    commands:
-      - cd backend
-      - pipenv install --dev --system --deploy
       - flake8
-
-  - name: Unit-Test
-    image: python:3.7-stretch
-    environment:
-    commands:
-      - cd backend
-      - pipenv install --dev --system --deploy
