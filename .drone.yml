@@ -2,39 +2,61 @@ kind: pipeline
 name: frontend
 
 steps:
-  - name: Lint
+  - name: Build
     image: node:8.16.0-stretch
+    volumes:
+    - name: cypress
+      path: /root/.cache/Cypress
     commands:
       - cd frontend
       - npm install
+
+  - name: Lint
+    image: node:8.16-stretch
+    commands:
+      - cd frontend
       - npm run lint
 
   - name: Unit-Tests
-    image: node:8.16.0-stretch
-    environment:
+    image: node:8.16-stretch
     commands:
       - cd frontend
-      - npm install
       - npm run test:unit
+
+  - name: E2E-Tests
+    image: node:8.16-stretch
+    volumes:
+    - name: cypress
+      path: /root/.cache/Cypress
+    commands:
+      - cd frontend
+      - npm run test:e2e-ci
+
+volumes:
+- name: cypress
+  temp: {}
 
 ---
 kind: pipeline
 name: backend
 
 steps:
-  - name: Lint
-    image: python:3.7
-    commands:
-      - cd backend
-      - pip install --upgrade pip
-      - pip install flake8
-      - flake8
-
-  - name: Unit-Test
-    image: python:3.7
-    environment:
+  - name: Build
+    image: python:3.7-stretch
     commands:
       - cd backend
       - pip install --upgrade pip
       - pip install pipenv
       - pipenv install --dev --system
+
+  - name: Lint
+    image: python:3.7-stretch
+    commands:
+      - cd backend
+      - flake8
+
+  - name: Unit-Test
+    image: python:3.7-stretch
+    environment:
+    commands:
+      - cd backend
