@@ -1,32 +1,15 @@
 kind: pipeline
-name: default
+name: frontend
 
 steps:
-  - name: Lint-BE
-    image: python:3.7
-    commands:
-      - cd backend
-      - pip install --upgrade pip
-      - pip install flake8
-      - flake8
-
-  - name: Test-BE
-    image: python:3.7
-    environment:
-    commands:
-      - cd backend
-      - pip install --upgrade pip
-      - pip install pipenv
-      - pipenv install --dev --system
-
-  - name: Lint-Frontend
+  - name: Lint
     image: node:8.16.0-stretch
     commands:
       - cd frontend
       - npm install
       - npm run lint
 
-  - name: Test-FE-Unit
+  - name: Unit-Tests
     image: node:8.16.0-stretch
     environment:
     commands:
@@ -34,3 +17,24 @@ steps:
       - npm install
       - npm run test:unit
 
+---
+kind: pipeline
+name: backend
+
+steps:
+  - name: Lint
+    image: python:3.7
+    commands:
+      - cd backend
+      - pip install --upgrade pip
+      - pip install flake8
+      - flake8
+
+  - name: Unit-Test
+    image: python:3.7
+    environment:
+    commands:
+      - cd backend
+      - pip install --upgrade pip
+      - pip install pipenv
+      - pipenv install --dev --system
