@@ -22,8 +22,8 @@ steps:
     commands:
       - cd frontend
       - npm run test:unit
+      
 ---
-#     "@vue/cli-plugin-e2e-cypress": "^3.7.0",
 kind: pipeline
 name: frontend-e2e
 steps:
