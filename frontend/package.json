@@ -6,9 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e-ci": "vue-cli-service test:e2e --headless"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "core-js": "^2.6.5",
@@ -49,8 +47,5 @@
       "vue-cli-service lint",
       "git add"
     ]
-  },
-  "optionalDependencies": {
-    "@vue/cli-plugin-e2e-cypress": "^3.7.0"
   }
 }

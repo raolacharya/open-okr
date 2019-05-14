@@ -25,17 +25,6 @@ steps:
       
 ---
 kind: pipeline
-name: frontend-e2e
-steps:
-  - name: E2E-Tests
-    image: cypress/browsers:node8.15.1-chrome73
-    commands:
-      - cd frontend
-      - npm install
-      - npm run test:e2e-ci
-
----
-kind: pipeline
 name: backend
 
 steps:
