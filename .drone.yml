@@ -22,19 +22,17 @@ steps:
     commands:
       - cd frontend
       - npm run test:unit
+---
 
+kind: pipeline
+name: frontend-e2e
+steps:
   - name: E2E-Tests
-    image: node:8.16-stretch
-    volumes:
-    - name: cypress
-      path: /root/.cache/Cypress
+    image: cypress/browsers:node8.15.1-chrome73
     commands:
       - cd frontend
+      - npm install
       - npm run test:e2e-ci
-
-volumes:
-- name: cypress
-  temp: {}
 
 ---
 kind: pipeline
@@ -47,12 +45,13 @@ steps:
       - cd backend
       - pip install --upgrade pip
       - pip install pipenv
-      - pipenv install --dev --system
+      - pipenv install --dev --system --deploy
 
   - name: Lint
     image: python:3.7-stretch
     commands:
       - cd backend
+      - pipenv install --dev --system --deploy
       - flake8
 
   - name: Unit-Test
@@ -60,3 +59,4 @@ steps:
     environment:
     commands:
       - cd backend
+      - pipenv install --dev --system --deploy
