@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: frontend
 
@@ -36,3 +37,8 @@ steps:
       - pip install pipenv
       - pipenv install --dev --system --deploy
       - flake8
+---
+kind: signature
+hmac: 54bc0149d8d7374f0d50d7d9f31297cc612190950ceb4e117aa2db705bddc465
+
+...
